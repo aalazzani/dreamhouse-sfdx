@@ -4,7 +4,6 @@ import groovy.json.JsonSlurperClassic
 
 node {
 
-    def SFDX_USE_GENERIC_UNIX_KEYCHAIN = true
     
     def SF_CONSUMER_KEY=env.SF_CONSUMER_KEY
     def SF_USERNAME=env.SF_USERNAME
@@ -16,7 +15,8 @@ node {
 
     def toolbelt = tool 'toolbelt'
 
-
+    export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+    
     // -------------------------------------------------------------------------
     // Check out code from source control.
     // -------------------------------------------------------------------------
