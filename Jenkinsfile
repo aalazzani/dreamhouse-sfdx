@@ -55,7 +55,7 @@ node {
                     script: "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias HubOrg",
                     returnStdout: true
                 ).trim()
-                print "SFDX_OUTPUT is ${SFDX_OUTPUT}"
+                echo "SFDX_OUTPUT is ${SFDX_OUTPUT}"
                 
                 rc = 0
                 if (rc != 0) {
