@@ -22,6 +22,7 @@ node {
     // -------------------------------------------------------------------------
 
     stage('checkout source') {
+        export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
         checkout scm
     }
 
@@ -33,7 +34,7 @@ node {
     
     withEnv(["HOME=${env.WORKSPACE}"]) {
         
-        export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+        
         withCredentials([file(credentialsId: SERVER_KEY_CREDENTALS_ID, variable: 'server_key_file')]) {
 
             // -------------------------------------------------------------------------
