@@ -40,7 +40,7 @@ node {
             
             stage('Authorize DevHub') {
                 
-                echo sh(returnStatus: true, script: "${toolbelt}/sfdx force:auth:logout --all);
+                rc = sh(returnStatus: true, script: "${toolbelt}/sfdx force:auth:logout --all);
 
        
                 rc = sh(returnStatus: true, script: "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias HubOrg");  
