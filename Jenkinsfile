@@ -37,7 +37,7 @@ node {
             // Logout of all orgs.
             // -------------------------------------------------------------------------
 
-            stage('Authorize DevHub') {
+            stage('Logout all orgs') {
                 rc = command "${toolbelt}/sfdx force:auth:logout --all"
                 if (rc != 0) {
                     error 'Salesforce orgs logout failed.'
