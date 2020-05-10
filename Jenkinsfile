@@ -14,6 +14,7 @@ node {
 
     def toolbelt = tool 'toolbelt'
 
+    def COLOR
 
     // -------------------------------------------------------------------------
     // Check out code from source control.
@@ -36,9 +37,27 @@ node {
             // -------------------------------------------------------------------------
             // Authorize the Dev Hub org with JWT key and give it an alias.
             // -------------------------------------------------------------------------
+            
+            stage ('color') {
 
+                COLOR = "green"
+                echo "color is $COLOR"
+
+                sh """COLOR=${COLOR}
+                echo $COLOR"""
+
+            }
+            
             stage('Authorize DevHub') {
-                rc = sh returnStatus: true, script: "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias HubOrg"
+                //rc = sh returnStatus: true, script: "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias HubOrg"
+                
+                SFDX_OUTPUT = sh (
+                    script: "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias HubOrg",
+                    returnStdout: true
+                ).trim()
+                print "SFDX_OUTPUT is ${SFDX_OUTPUT}"
+                
+                rc = 0
                 if (rc != 0) {
                     error 'Salesforce dev hub org authorization failed.'
                 }
