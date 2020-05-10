@@ -1,6 +1,7 @@
 #!groovy
 
 import groovy.json.JsonSlurperClassic
+export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 
 node {
 
@@ -22,7 +23,6 @@ node {
     // -------------------------------------------------------------------------
 
     stage('checkout source') {
-        export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
         checkout scm
     }
 
