@@ -15,6 +15,7 @@ node {
     def toolbelt = tool 'toolbelt'
 
     def COLOR
+    def SFDX_OUTPUT = 'Empty'
 
     // -------------------------------------------------------------------------
     // Check out code from source control.
