@@ -51,11 +51,12 @@ node {
             stage('Authorize DevHub') {
                 //rc = sh returnStatus: true, script: "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias HubOrg"
                 
+                echo "SFDX_OUTPUT1 is ${SFDX_OUTPUT}"
                 SFDX_OUTPUT = sh (
                     script: "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias HubOrg",
                     returnStdout: true
                 ).trim()
-                echo "SFDX_OUTPUT is ${SFDX_OUTPUT}"
+                echo "SFDX_OUTPUT2 is ${SFDX_OUTPUT}"
                 
                 rc = 0
                 if (rc != 0) {
