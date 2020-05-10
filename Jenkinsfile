@@ -11,6 +11,32 @@ node {
     def PACKAGE_NAME='0Ho1U000000CaUzSAK'
     def PACKAGE_VERSION
     def SF_INSTANCE_URL = env.SF_INSTANCE_URL ?: "https://login.salesforce.com"
+    def JWT = "MIIEpAIBAAKCAQEAwi46giRxhdnBWsTg6XD5AzHMCtmIeb08CUje9BuoUzxjO1RX
+jS4BLubCAsdNKn3t8lXKjD/cXukDpJZQckywcNixVHPK9Ilh/loXuOM+3hRMvoXa
+zoO/ccGA7rIDZnPKY1R3YZ2G3bwqgYa+jWqjjanJvymHQDp0jeKCOm1r5k+521w5
+CLKSfU2PGvByXzUldoafeyEFokgSsu3xJ2oO1cBqVEDQCV26n5E3AL6Okc1q1mDO
+KVcD09ZPMEe+xQmu0pwyxwQAJRTxJTq53gtwv7qjhDYFqZ+JkDFtNR9zb4mVghpv
+kBZxnefQBrF6Lh8oJdt0AV+TLr/fMIOe5D0HZQIDAQABAoIBAQCqKca9+1+8U0nc
+2EDccVLWGNJdA6pUPJ+a50/yDTah0n6HJG8g2hrRVgjYVHzr6rUVM1cvNltQlNPL
+bKoMr+XCzjH/9wT47FeChMLbE9Eo3hMutrA7XzrqXg81navbIUdPalq/oULplxaM
+sV7VIIk5AHw6WBMdFtzC5acHupHenZ/kARmdGnNQmz9jIZYGvYUA9cepTs04BdbZ
+9SNVkC2InuX+2U+5e4GNknG3ZA1ad0cuuF3U8gZFVcYEnoa9RvBiWlmN35QWrd9O
+nqkEJLcHqqkoBXy4I3S2aDnEPF08kIa9CV3NZl90bQoiZsq/7w9KNXAO9H+/JKz7
+voadZiwVAoGBAPlUidJZRC7ZifJsL5wudVmqq2ehBKxKPL3jPlOsrQR9pmhycy6W
+avYEYh30nszqf7ZqM8EXoCmElYuuVzdGHYJzVX7pBy41s9tkj5wddX4kzD24GG1R
+cfCEH+QiCelg407xj/sgHEEIyih1XVPeLVLP5VoyyAOZgmWZZCrHGsfLAoGBAMdg
+A8UXGp8gBiLaNbQMfmV9VEAiOPR9IW6oKme9qnYFXjfT/zaty6YLiS27IueUjWin
+UgYUEqwdWvM4GkyTvr1DPVMLVnu5tflejvkZVO3yBO0/3sIwWpRRfYAWDD0hLjTa
+NJTUzkHPzAM1O26YwTNlsXHhpmEGlq7MQ2AJlqePAoGAWPVvwyx0Zl7ZmDQ/fHMb
+DaYWSAAsYaiPKZUlzMcEaGDIeeWz8QBcI3EG7Pc1nZlhfd1An/lk/MtAbDkFB0Su
+DLhH3eMY28TvaizkDGh6XkqU0MSZeo+fnpgVpNj8PleCYs1PeONJEW8oae0OInlY
+JH7mrxsFQDuKSePD2Ht3s6cCgYAb8T/2Amvvu0xA3DZEmq+oR61kI6e51EO4P4dZ
+7MIUMmJnDqYpIqh1CA7cwup8bFx5O2IKigun5aFWjxlYfChyXBcfKWqggoGXhoIh
+NUSq6I16NsZgjuhS+yzMo8ppUton/CD8burNXHMqS+6dbHk/W9RHsqlf1c2OiAA1
+WIKtzwKBgQDF3YZ+kbSU1c9SZITvYDszJxEgIfW5ECxnsNCsAdWHF/lhJsL90FaK
+D7D52VbqPmbTEnzEgFSRfteaAz6cuyHJD2b03DjDndpGXbw0rvvcEBDY3ZSXjdyk
+fr/4v8ljHs2xqafakxBjEkzyUpfi+Q+znieX8FNK0TXZ1Pq3J7HMlA==
+"
 
     def toolbelt = tool 'toolbelt'
 
@@ -40,7 +66,10 @@ node {
             // -------------------------------------------------------------------------
 
             stage('Authorize DevHub') {
-                rc = command "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias HubOrg"
+                //rc = command "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias HubOrg"
+                rc = command "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${JWT} --setdefaultdevhubusername --setalias HubOrg"
+                
+                
                 if (rc != 0) {
                     error 'Salesforce dev hub org authorization failed.'
                 }
