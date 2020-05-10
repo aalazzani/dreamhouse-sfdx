@@ -15,8 +15,8 @@ node {
 
     def toolbelt = tool 'toolbelt'
 
-    export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
     
+
     // -------------------------------------------------------------------------
     // Check out code from source control.
     // -------------------------------------------------------------------------
@@ -33,6 +33,7 @@ node {
     
     withEnv(["HOME=${env.WORKSPACE}"]) {
         
+        export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
         withCredentials([file(credentialsId: SERVER_KEY_CREDENTALS_ID, variable: 'server_key_file')]) {
 
             // -------------------------------------------------------------------------
