@@ -33,16 +33,6 @@ node {
         
         withCredentials([file(credentialsId: SERVER_KEY_CREDENTALS_ID, variable: 'server_key_file')]) {
             
-            // -------------------------------------------------------------------------
-            // Logout of all orgs.
-            // -------------------------------------------------------------------------
-
-            stage('Logout all orgs') {
-                rc = command "${toolbelt}/sfdx force:auth:logout --all"
-                if (rc != 0) {
-                    error 'Salesforce orgs logout failed.'
-                }
-            }
             
             // -------------------------------------------------------------------------
             // Authorize the Dev Hub org with JWT key and give it an alias.
