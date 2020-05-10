@@ -4,7 +4,6 @@ import groovy.json.JsonSlurperClassic
 
 node {
 
-    def SFDX_USE_GENERIC_UNIX_KEYCHAIN = true
     def SF_CONSUMER_KEY=env.SF_CONSUMER_KEY
     def SF_USERNAME=env.SF_USERNAME
     def SERVER_KEY_CREDENTALS_ID=env.SERVER_KEY_CREDENTALS_ID
