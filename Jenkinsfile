@@ -32,8 +32,7 @@ node {
     withEnv(["HOME=${env.WORKSPACE}"]) {
         
         withCredentials([file(credentialsId: SERVER_KEY_CREDENTALS_ID, variable: 'server_key_file')]) {
-            
-            
+
             // -------------------------------------------------------------------------
             // Authorize the Dev Hub org with JWT key and give it an alias.
             // -------------------------------------------------------------------------
@@ -51,7 +50,7 @@ node {
             // -------------------------------------------------------------------------
 
             stage('Create Test Scratch Org') {
-                rc = command "${toolbelt}/sfdx force:org:create -a ciorg --targetdevhubusername HubOrg --setdefaultusername --definitionfile config/project-scratch-def.json --wait 10 --durationdays 1"
+                rc = command "${toolbelt}/sfdx force:org:create --targetdevhubusername HubOrg --setdefaultusername --definitionfile config/project-scratch-def.json --setalias ciorg --wait 10 --durationdays 1"
                 if (rc != 0) {
                     error 'Salesforce test scratch org creation failed.'
                 }
