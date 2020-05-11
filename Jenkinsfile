@@ -117,16 +117,16 @@ node {
                 }
 
                 // Wait 5 minutes for package replication.
-                sleep 300
+                sleep 60
 
-                def jsonSlurper = new JsonSlurperClassic()
-                def response = jsonSlurper.parseText(output)
+                def jsonSlurper2 = new JsonSlurperClassic()
+                def response2 = jsonSlurper2.parseText(output)
 
-                //PACKAGE_VERSION = response.result.SubscriberPackageVersionId
+                PACKAGE_NAME = response.result.PackageId
 
-                //response = null
+                response = null
 
-                echo ${response.result}
+                echo ${PACKAGE_NAME}
             }
 
             // -------------------------------------------------------------------------
