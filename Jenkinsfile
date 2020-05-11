@@ -104,9 +104,6 @@ node {
                 }
             }
             
-            
-            sfdx force:package:create --name dreamhouse --description "My Package" --packagetype Unlocked --path force-app --nonamespace --targetdevhubusername DevHub
-            
             // -------------------------------------------------------------------------
             // Create an unlocked package.
             // -------------------------------------------------------------------------
