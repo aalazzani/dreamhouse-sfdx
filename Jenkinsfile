@@ -8,7 +8,7 @@ node {
     def SF_USERNAME=env.SF_USERNAME
     def SERVER_KEY_CREDENTALS_ID=env.SERVER_KEY_CREDENTALS_ID
     def TEST_LEVEL='RunLocalTests'
-    def PACKAGE_NAME='0Ho1I000000XZDVSA4'
+    def PACKAGE_NAME='0Ho3z000000fxgkCAA'
     def PACKAGE_VERSION
     def SF_INSTANCE_URL = env.SF_INSTANCE_URL ?: "https://login.salesforce.com"
 
@@ -105,30 +105,7 @@ node {
             }
             
             // -------------------------------------------------------------------------
-            // Create an unlocked package.
-            // -------------------------------------------------------------------------
-
-            stage('Create unlocked Package') {
-                if (isUnix()) {
-                    output = sh returnStdout: true, script: "${toolbelt}/sfdx force:package:create --name dreamhouse --description 'My Package' --packagetype Unlocked --path force-app --nonamespace --targetdevhubusername HubOrg"
-                } else {
-                    output = bat(returnStdout: true, script: "${toolbelt}/sfdx force:package:create --name dreamhouse --description 'My Package' --packagetype Unlocked --path force-app --nonamespace --targetdevhubusername HubOrg").trim()
-                    output = output.readLines().drop(1).join(" ")
-                }
-
-                // Wait 5 minutes for package replication.
-                sleep 60
-
-                def jsonSlurper2 = new JsonSlurperClassic()
-                def response2 = jsonSlurper2.parseText(output)
-
-                PACKAGE_NAME = response.result.PackageId
-
-                response = null
-
-                echo ${PACKAGE_NAME}
-            }
-
+            
             // -------------------------------------------------------------------------
             // Create package version.
             // -------------------------------------------------------------------------
