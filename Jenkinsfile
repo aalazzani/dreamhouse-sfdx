@@ -110,9 +110,9 @@ node {
 
             stage('Create unlocked Package') {
                 if (isUnix()) {
-                    output = sh returnStdout: true, script: "${toolbelt}/sfdx force:package:create --name dreamhouse --description "My Package" --packagetype Unlocked --path force-app --nonamespace --targetdevhubusername HubOrg"
+                    output = sh returnStdout: true, script: "${toolbelt}/sfdx force:package:create --name dreamhouse --description 'My Package' --packagetype Unlocked --path force-app --nonamespace --targetdevhubusername HubOrg"
                 } else {
-                    output = bat(returnStdout: true, script: "${toolbelt}/sfdx force:package:create --name dreamhouse --description "My Package" --packagetype Unlocked --path force-app --nonamespace --targetdevhubusername HubOrg").trim()
+                    output = bat(returnStdout: true, script: "${toolbelt}/sfdx force:package:create --name dreamhouse --description 'My Package' --packagetype Unlocked --path force-app --nonamespace --targetdevhubusername HubOrg").trim()
                     output = output.readLines().drop(1).join(" ")
                 }
 
