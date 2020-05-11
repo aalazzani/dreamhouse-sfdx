@@ -37,6 +37,7 @@ node {
             // Authorize the Dev Hub org with JWT key and give it an alias.
             // -------------------------------------------------------------------------
             
+            rc = command "${toolbelt}/sfdx force:auth:logout --all"
             rc = command "${toolbelt}/sfdx force:config:set instanceUrl=https://aaasfdxdemo.my.salesforce.com"
             
             stage('Authorize DevHub') {
@@ -106,7 +107,6 @@ node {
                 }
             }
             
-            // -------------------------------------------------------------------------
             
             // -------------------------------------------------------------------------
             // Create package version.
