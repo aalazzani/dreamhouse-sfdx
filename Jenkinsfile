@@ -103,7 +103,34 @@ node {
                     error 'Salesforce test scratch org deletion failed.'
                 }
             }
+            
+            
+            sfdx force:package:create --name dreamhouse --description "My Package" --packagetype Unlocked --path force-app --nonamespace --targetdevhubusername DevHub
+            
+            // -------------------------------------------------------------------------
+            // Create an unlocked package.
+            // -------------------------------------------------------------------------
 
+            stage('Create unlocked Package') {
+                if (isUnix()) {
+                    output = sh returnStdout: true, script: "${toolbelt}/sfdx force:package:create --name dreamhouse --description "My Package" --packagetype Unlocked --path force-app --nonamespace --targetdevhubusername HubOrg"
+                } else {
+                    output = bat(returnStdout: true, script: "${toolbelt}/sfdx force:package:create --name dreamhouse --description "My Package" --packagetype Unlocked --path force-app --nonamespace --targetdevhubusername HubOrg").trim()
+                    output = output.readLines().drop(1).join(" ")
+                }
+
+                // Wait 5 minutes for package replication.
+                sleep 300
+
+                def jsonSlurper = new JsonSlurperClassic()
+                def response = jsonSlurper.parseText(output)
+
+                //PACKAGE_VERSION = response.result.SubscriberPackageVersionId
+
+                //response = null
+
+                echo ${response.result}
+            }
 
             // -------------------------------------------------------------------------
             // Create package version.
